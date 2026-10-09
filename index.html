@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="data:," />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E😐%3C/text%3E%3C/svg%3E" />
     <title>LeetFeel</title>
     <script>
       (function () {
@@ -92,6 +92,29 @@
         border-bottom: 1px solid var(--border);
       }
       .toolbar .spacer { flex: 1 1 auto; }
+      /* ---------- brand lockup: <😐> LeetFeel ---------- */
+      .brand {
+        display: inline-flex; align-items: center; gap: 8px; flex: none;
+        font-weight: 700; font-size: 17px; letter-spacing: -0.01em; line-height: 1;
+        color: var(--text); white-space: nowrap; margin-right: 2px;
+      }
+      .logo-mark {
+        display: inline-flex; align-items: center; gap: 1px;
+        line-height: 1; vertical-align: middle; flex: none;
+      }
+      .logo-bracket {
+        display: inline-block; transform: scaleY(1.35); transform-origin: center;
+        color: var(--green-strong); font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-weight: 700; font-size: 20px; line-height: 1;
+      }
+      .logo-face { font-size: 19px; line-height: 1; display: inline-block; }
+      .logo-mark-sm .logo-bracket { font-size: 17px; }
+      .logo-mark-sm .logo-face { font-size: 16px; }
+      @media (max-width: 560px) {
+        .brand { font-size: 16px; gap: 6px; }
+        .logo-bracket { font-size: 18px; }
+        .logo-face { font-size: 17px; }
+      }
       .tb-btn {
         appearance: none; border: 1px solid var(--border); background: var(--panel-2);
         border-radius: 6px; padding: 7px 12px; cursor: pointer; font-size: 14px;
@@ -399,10 +422,72 @@
       .donate-btn .ph { display: block; }
       .donate-btn:hover { border-color: var(--faint); }
       .site-foot .attr { font-size: 12.5px; color: var(--faint); margin: 0; }
+
+      /* ---------- round: full-height panes, pane foot, credits, picker grid ---------- */
+      html, body { height: 100%; }
+      body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
+      .toolbar { position: static; flex: none; }
+      .blurb { flex: none; }
+      .split { flex: 1 1 auto; min-height: 0; }
+      .split > section { min-height: 0; }
+      .problem-pane { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+      .pane-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 26px 26px 22px; }
+      .editor-pane { min-height: 0; }
+      .code-wrap { flex: 1 1 auto; min-height: 0; }
+      .results { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+      @media (max-width: 920px) {
+        .split { grid-template-rows: auto minmax(0, 1fr); }
+        .problem-pane { max-height: 46dvh; }
+        .split.pane-collapsed .problem-pane { max-height: none; }
+        .split.pane-collapsed .pane-scroll { display: none; }
+        .pane-toggle { margin: 12px 12px 0; width: auto; }
+        .pane-scroll { padding: 18px 18px 16px; }
+        .code-wrap { min-height: 0; }
+      }
+      .pane-foot {
+        flex: none; margin: 0 12px 12px; border: 1px solid var(--border); border-radius: 10px;
+        background: var(--panel-2); padding: 9px 12px;
+        display: flex; align-items: center; justify-content: center; gap: 8px 12px; flex-wrap: wrap;
+      }
+      .pane-foot .donate-btn, .results-foot .donate-btn { margin-left: 0; }
+      .pane-foot-text { color: var(--muted); font-size: 13.5px; text-align: center; line-height: 1.45; }
+      .results-foot {
+        margin-top: 22px; border: 1px solid var(--border); border-radius: 10px; background: var(--panel);
+        padding: 18px; text-align: center; color: var(--muted); font-size: 13.5px;
+      }
+      .results-foot p { margin: 0 0 10px; }
+      .results-foot a { color: var(--green-strong); }
+      .results-foot .foot-row { display: flex; align-items: center; justify-content: center; gap: 8px 12px; flex-wrap: wrap; }
+      .credits-wrap { position: relative; display: inline-flex; }
+      .credits-btn {
+        appearance: none; border: 0; background: transparent; color: var(--muted);
+        font-size: 13px; font-weight: 600; cursor: pointer; padding: 6px 8px; border-radius: 6px;
+        text-decoration: underline; text-underline-offset: 3px;
+      }
+      .credits-btn:hover { color: var(--text); }
+      .credits-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+      .credits-pop {
+        display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
+        width: 302px; max-width: 84vw; background: var(--panel); border: 1px solid var(--border);
+        border-radius: 10px; box-shadow: var(--shadow); padding: 12px 14px 6px;
+        text-align: left; z-index: 95; color: var(--muted); font-size: 13px; line-height: 1.5; cursor: auto;
+      }
+      .credits-pop.show { display: block; }
+      .results-foot .credits-pop, .pane-foot .credits-pop { left: auto; right: 0; }
+      .credits-pop .credits-title { display: block; font-weight: 700; color: var(--text); font-size: 13.5px; margin-bottom: 4px; }
+      .credits-pop ul { list-style: none; margin: 0; padding: 0; }
+      .credits-pop li { padding: 6px 0; border-top: 1px solid var(--border); }
+      .credits-pop a { color: var(--green-strong); }
+      .picker-row { display: grid; grid-template-columns: 36px minmax(0, 1fr) 88px; align-items: center; }
+      .picker-row .ttl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .picker-row .ttl-cat { color: var(--faint); font-size: 12.5px; margin-left: 8px; }
+      .picker-row .diff-col { width: 88px; justify-self: end; }
+      .picker-row .diff-col .chip { display: block; text-align: center; }
     </style>
   </head>
   <body data-mode="classic">
     <header class="toolbar">
+      <span class="brand" aria-label="LeetFeel"><span class="logo-mark" aria-hidden="true"><span class="logo-bracket">&lt;</span><span class="logo-face">😐</span><span class="logo-bracket">&gt;</span></span><span class="brand-name">LeetFeel</span></span>
       <button class="tb-btn" id="problemBtn" type="button" aria-haspopup="dialog"><span id="problemBtnLabel"></span><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button>
       <button class="tb-btn" id="randomBtn" type="button" title="Random problem (no repeats until you've seen them all)"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M237.66,178.34a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32-11.32L212.69,192H200.94a72.12,72.12,0,0,1-58.59-30.15l-41.72-58.4A56.1,56.1,0,0,0,55.06,80H32a8,8,0,0,1,0-16H55.06a72.12,72.12,0,0,1,58.59,30.15l41.72,58.4A56.1,56.1,0,0,0,200.94,176h11.75l-10.35-10.34a8,8,0,0,1,11.32-11.32ZM143,107a8,8,0,0,0,11.16-1.86l1.2-1.67A56.1,56.1,0,0,1,200.94,80h11.75L202.34,90.34a8,8,0,0,0,11.32,11.32l24-24a8,8,0,0,0,0-11.32l-24-24a8,8,0,0,0-11.32,11.32L212.69,64H200.94a72.12,72.12,0,0,0-58.59,30.15l-1.2,1.67A8,8,0,0,0,143,107Zm-30,42a8,8,0,0,0-11.16,1.86l-1.2,1.67A56.1,56.1,0,0,1,55.06,176H32a8,8,0,0,0,0,16H55.06a72.12,72.12,0,0,0,58.59-30.15l1.2-1.67A8,8,0,0,0,113,149Z"/></svg> Random</button>
       <span class="spacer"></span>
@@ -424,11 +509,18 @@
     <main class="split" id="playView">
       <section class="problem-pane" aria-label="Problem">
         <button class="tb-btn pane-toggle" id="paneToggle" type="button" aria-expanded="true"><span>Problem details</span><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button>
+        <div class="pane-scroll">
         <div class="pane-body">
           <h1 id="pTitle"></h1>
           <div class="meta-row" id="pMeta"></div>
           <div class="desc" id="pDesc"></div>
           <a class="lc-link" id="lcLink" href="#" target="_blank" rel="noopener">View on LeetCode <svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a>
+        </div>
+        </div>
+        <div class="pane-foot">
+          <span class="pane-foot-text">LeetFeel is free. If it made you feel something, you can</span>
+          <a class="donate-btn" id="donateBtn" href="#"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Buy me a coffee</a>
+          <div class="credits-wrap"><button class="credits-btn" type="button" aria-haspopup="true" aria-expanded="false">Credits</button><div class="credits-pop" role="dialog" aria-label="Credits and attributions"><span class="credits-title">Credits</span><ul><li>Solutions — <a href="https://github.com/neetcode-gh/leetcode" target="_blank" rel="noopener">NeetCode (neetcode-gh/leetcode)</a> · MIT License</li><li>Problem statements — <a href="https://github.com/neenza/leetcode-problems" target="_blank" rel="noopener">neenza/leetcode-problems</a></li><li>Icons — <a href="https://github.com/phosphor-icons/core" target="_blank" rel="noopener">Phosphor Icons</a> · MIT License</li><li>Problems — <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a></li></ul></div></div>
         </div>
       </section>
 
@@ -478,16 +570,14 @@
           <button class="tb-btn" id="retryBtn" type="button"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"/></svg>Retry this one</button>
           <button class="tb-btn" id="copyImgBtn" type="button"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg>Copy image</button>
           <button class="tb-btn" id="downloadBtn" type="button"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,224a8,8,0,0,1-5.66-2.34l-80-80a8,8,0,0,1,11.32-11.32L120,196.69V24a8,8,0,0,1,16,0V196.69l66.34-66.35a8,8,0,0,1,11.32,11.32l-80,80A8,8,0,0,1,128,224Z"/></svg>Download PNG</button>
-          <button class="tb-btn" id="shareBtn" type="button"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>Share…</button>
-          <button class="tb-btn" id="copyBtn" type="button">Copy text</button>
+        </div>
+        <div class="results-foot">
+          <p>LeetFeel is free. If it made you feel something, you can <a class="donate-btn" id="donateBtn2" href="#"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Buy me a coffee</a></p>
+          <div class="foot-row"><div class="credits-wrap"><button class="credits-btn" type="button" aria-haspopup="true" aria-expanded="false">Credits</button><div class="credits-pop" role="dialog" aria-label="Credits and attributions"><span class="credits-title">Credits</span><ul><li>Solutions — <a href="https://github.com/neetcode-gh/leetcode" target="_blank" rel="noopener">NeetCode (neetcode-gh/leetcode)</a> · MIT License</li><li>Problem statements — <a href="https://github.com/neenza/leetcode-problems" target="_blank" rel="noopener">neenza/leetcode-problems</a></li><li>Icons — <a href="https://github.com/phosphor-icons/core" target="_blank" rel="noopener">Phosphor Icons</a> · MIT License</li><li>Problems — <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a></li></ul></div></div></div>
         </div>
       </div>
     </section>
 
-    <footer class="site-foot">
-      <p>LeetFeel is free. If it made you feel something, you can <a class="donate-btn" id="donateBtn" href="#"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Buy me a coffee</a></p>
-      <p class="attr">Solutions from <a href="https://github.com/neetcode-gh/leetcode" target="_blank" rel="noopener">NeetCode (neetcode-gh/leetcode)</a>, MIT License. Problem statements from <a href="https://github.com/neenza/leetcode-problems" target="_blank" rel="noopener">neenza/leetcode-problems</a>. Icons from <a href="https://github.com/phosphor-icons/core" target="_blank" rel="noopener">Phosphor Icons</a>, MIT License.</p>
-    </footer>
 
     <div class="overlay" id="pickerOverlay" role="dialog" aria-modal="true" aria-label="Choose a problem">
       <div class="picker">
@@ -521,6 +611,8 @@
         keyboard: '<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224V192Zm-16-64a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16H200A8,8,0,0,1,208,128Zm0-32a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16H200A8,8,0,0,1,208,96ZM72,160a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h8A8,8,0,0,1,72,160Zm96,0a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,160Zm40,0a8,8,0,0,1-8,8h-8a8,8,0,0,1,0-16h8A8,8,0,0,1,208,160Z"/></svg>',
         lightning: '<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></svg>'
       };
+      /* Brand lockup <😐> — the emoji is the logo mark itself, not a UI icon */
+      const LOGO_MARK_HTML = '<span class="logo-mark logo-mark-sm" aria-hidden="true"><span class="logo-bracket">&lt;</span><span class="logo-face">😐</span><span class="logo-bracket">&gt;</span></span>';
       /* ================= RNG + helpers ================= */
       function mulberry32(seed) {
         let a = seed >>> 0;
@@ -702,6 +794,7 @@
         chunks: [],
         chunkIdx: 0,
         tabs: 0,
+        tabHeld: false,
         ticker: null,
         toastTimer: null,
         played: {}
@@ -851,10 +944,10 @@
         if (!state.keystrokes) return 100;
         return Math.round((state.correctKeys / state.keystrokes) * 100);
       }
-      function tpm() {
-        const mins = elapsed() / 60000;
-        if (mins <= 0) return 0;
-        return Math.round(state.tabs / mins);
+      function tps() {
+        const secs = elapsed() / 1000;
+        if (secs <= 0) return "0.0";
+        return (state.tabs / secs).toFixed(1);
       }
       function updateStats() {
         const el = $("liveStats");
@@ -866,7 +959,7 @@
             "<span>Time <b>" + fmtClock(elapsed()) + "</b></span>";
         } else {
           el.innerHTML =
-            "<span>TPM <b>" + tpm() + "</b></span>" +
+            "<span>TPS <b>" + tps() + "</b></span>" +
             "<span>Tabs <b>" + state.tabs + "</b></span>" +
             "<span>Time <b>" + fmtClock(elapsed()) + "</b></span>";
         }
@@ -892,6 +985,7 @@
         state.finishedAt = null;
         state.done = false;
         state.tabs = 0;
+        state.tabHeld = false;
         state.chunkIdx = 0;
         state.chunks = chunkify(state.run.code, mulberry32(state.run.seed ^ 0x9e37));
         document.body.classList.remove("typing");
@@ -930,7 +1024,7 @@
           rows.push(["Characters", String(run.code.length), String(run.code.length) + " (already written)"]);
         } else {
           rows.push(["Time", fmtTime(elapsed()), run.aiSecs.toFixed(2) + "s"]);
-          rows.push(["Speed", tpm() + " TPM", "no tabs required"]);
+          rows.push(["Speed", tps() + " TPS", "no tabs required"]);
           rows.push(["Tab presses", String(state.tabs), "0"]);
           rows.push(["Characters", String(run.code.length), String(run.code.length) + " (already written)"]);
         }
@@ -940,12 +1034,12 @@
         $("youRows").innerHTML = rows.map(function (r2) { return statHtml(r2, 1); }).join("");
         $("aiRows").innerHTML = rows.map(function (r2) { return statHtml(r2, 2); }).join("");
         const modeName = state.mode === "classic" ? "Classic" : "Tab Complete";
-        const heroNum = state.mode === "classic" ? classicWpm() : tpm();
-        const heroUnit = state.mode === "classic" ? "WPM" : "TPM";
+        const heroNum = state.mode === "classic" ? classicWpm() : tps();
+        const heroUnit = state.mode === "classic" ? "WPM" : "TPS";
         const cardStats = state.mode === "classic"
           ? [["Time", fmtTime(elapsed())], ["Accuracy", accuracy() + "%"], ["Language", LANGS[run.lang].name], ["Mode", modeName]]
           : [["Time", fmtTime(elapsed())], ["Tab presses", String(state.tabs)], ["Language", LANGS[run.lang].name], ["Mode", modeName]];
-        $("scTitle").innerHTML = (state.mode === "classic" ? PH_ICONS.keyboard : PH_ICONS.lightning) + " LeetFeel &middot; <b>" + p.n + ". " + escapeHtml(p.t) + "</b>";
+        $("scTitle").innerHTML = LOGO_MARK_HTML + " LeetFeel &middot; <b>" + p.n + ". " + escapeHtml(p.t) + "</b>";
         $("scHeroNum").textContent = heroNum;
         $("scHeroUnit").textContent = heroUnit;
         $("scStats").innerHTML = cardStats.map(function (s) {
@@ -953,7 +1047,7 @@
         }).join("");
         const scoreLine = state.mode === "classic"
           ? heroNum + " WPM \u00B7 " + accuracy() + "% accuracy \u00B7 " + fmtTime(elapsed())
-          : heroNum + " TPM \u00B7 " + state.tabs + " tabs \u00B7 " + fmtTime(elapsed());
+          : heroNum + " TPS \u00B7 " + state.tabs + " tabs \u00B7 " + fmtTime(elapsed());
         $("shareCard").dataset.text =
           "LeetFeel \u2014 " + p.t + " (" + LANGS[run.lang].name + ", " + modeName + ")\n" +
           scoreLine + "\n" +
@@ -967,14 +1061,6 @@
           heroUnit: heroUnit,
           stats: cardStats
         };
-        /* Native share is offered only where file sharing actually works. */
-        const shareBtn = $("shareBtn");
-        let canFileShare = false;
-        try {
-          canFileShare = !!(navigator.share && navigator.canShare &&
-            navigator.canShare({ files: [new File([""], "leetfeel.png", { type: "image/png" })] }));
-        } catch (e) { canFileShare = false; }
-        shareBtn.classList.toggle("hidden", !canFileShare);
         $("playView").classList.add("hidden");
         $("resultsView").classList.add("show");
         window.scrollTo({ top: 0 });
@@ -1018,11 +1104,24 @@
         ctx.fillStyle = panel; ctx.fill();
         ctx.strokeStyle = border; ctx.lineWidth = 1.5; ctx.stroke();
         const X = 56, XR = W - 56;
-        /* brand + problem title */
+        /* brand lockup <😐> + wordmark + problem title */
         ctx.textBaseline = "alphabetic";
+        const EMOJI_FONT = "'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif";
+        let cursorX = X;
+        ctx.font = "700 24px " + MONO;
+        const bracketW = ctx.measureText("<").width;
+        ctx.fillStyle = green;
+        ctx.save(); ctx.translate(cursorX, 88); ctx.scale(1, 1.35); ctx.fillText("<", 0, 0); ctx.restore();
+        cursorX += bracketW + 2;
+        ctx.font = "20px " + EMOJI_FONT; ctx.fillStyle = text;
+        const faceW = ctx.measureText("😐").width;
+        ctx.fillText("😐", cursorX, 88);
+        cursorX += faceW + 2;
+        ctx.save(); ctx.font = "700 24px " + MONO; ctx.fillStyle = green; ctx.translate(cursorX, 88); ctx.scale(1, 1.35); ctx.fillText(">", 0, 0); ctx.restore();
+        cursorX += bracketW + 10;
         ctx.font = "700 21px " + MONO; ctx.fillStyle = green;
-        ctx.fillText("LeetFeel", X, 88);
-        const brandW = ctx.measureText("LeetFeel").width;
+        ctx.fillText("LeetFeel", cursorX, 88);
+        const brandW = (cursorX - X) + ctx.measureText("LeetFeel").width;
         ctx.font = "500 20px " + SANS; ctx.fillStyle = muted;
         ctx.fillText("\u00B7", X + brandW + 10, 88);
         const dotW = ctx.measureText("\u00B7").width;
@@ -1090,10 +1189,14 @@
         caret.style.left = left + "px";
         caret.style.height = Math.max(18, r.height) + "px";
         caret.classList.toggle("on", !state.done);
-        /* keep the caret line in view, recentering only when it drifts out */
+        /* Editor-style auto-scroll: nudge just enough to keep the caret
+           line visible with a small margin \u2014 no recentering jumps. */
         const viewTop = scroll.scrollTop, viewBot = viewTop + scroll.clientHeight;
-        if (top < viewTop + 30 || top > viewBot - 90) {
-          scroll.scrollTop = Math.max(0, top - scroll.clientHeight / 2);
+        const caretH = Math.max(18, r.height), margin = 56;
+        if (top < viewTop + margin) {
+          scroll.scrollTop = Math.max(0, top - margin);
+        } else if (top + caretH > viewBot - margin) {
+          scroll.scrollTop = top + caretH + margin - scroll.clientHeight;
         }
       }
       function cursorIntoView() { positionCaret(); }
@@ -1192,7 +1295,14 @@
           if (e.isComposing || e.key === "Unidentified" || e.keyCode === 229) return;
           if (e.key === "Escape") { e.preventDefault(); restartRun(); return; }
           if (state.mode === "tab") {
-            if (e.key === "Tab") { e.preventDefault(); tabKey(); }
+            if (e.key === "Tab") {
+              e.preventDefault();
+              /* One acceptance per discrete press: ignore auto-repeat
+                 events and require a keyup before the next Tab counts. */
+              if (e.repeat || state.tabHeld) return;
+              state.tabHeld = true;
+              tabKey();
+            }
             return;
           }
           if (e.key === "Tab") { e.preventDefault(); classicKey("Tab"); return; }
@@ -1200,6 +1310,13 @@
           if (e.key === "Enter") { e.preventDefault(); classicKey("Enter"); return; }
           if (e.key.length === 1) { e.preventDefault(); classicKey(e.key); }
         });
+        cap.addEventListener("keyup", function (e) {
+          if (e.key === "Tab") state.tabHeld = false;
+        });
+        window.addEventListener("keyup", function (e) {
+          if (e.key === "Tab") state.tabHeld = false;
+        });
+        window.addEventListener("blur", function () { state.tabHeld = false; });
         cap.addEventListener("beforeinput", function (e) {
           const t = e.inputType || "";
           if (t === "insertText") {
@@ -1313,10 +1430,9 @@
           b.className = "picker-row";
           b.innerHTML =
             '<span class="num">' + p.n + "</span>" +
-            '<span class="ttl">' + p.t + "</span>" +
-            (state.played[p.id] ? '<span class="played">played</span>' : "") +
-            '<span class="chip ' + p.d.toLowerCase() + '">' + p.d + "</span>" +
-            '<span class="chip cat">' + p.cat + "</span>";
+            '<span class="ttl">' + p.t + ' <span class="ttl-cat">' + p.cat + "</span>" +
+            (state.played[p.id] ? ' <span class="played">played</span>' : "") + "</span>" +
+            '<span class="diff-col"><span class="chip ' + p.d.toLowerCase() + '">' + p.d + "</span></span>";
           b.addEventListener("click", function () {
             closePicker();
             startRun(p.id);
@@ -1360,18 +1476,6 @@
         $("filterSearch").addEventListener("input", renderPicker);
         $("nextBtn").addEventListener("click", nextProblem);
         $("retryBtn").addEventListener("click", restartRun);
-        /* Copy text — secondary action. It deliberately does NOT append
-           the page's own URL: inside the Muse shell that address is an
-           internal gateway URL, not a shareable link, and the shell owns
-           sharing. The image above self-attributes via its "leetfeel"
-           footer instead. */
-        $("copyBtn").addEventListener("click", function () {
-          const text = $("shareCard").dataset.text || "";
-          const done = function () { showToast("Copied to clipboard"); };
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
-          } else { fallbackCopy(text); done(); }
-        });
         /* Copy image — the primary share action. Falls back with a clear
            message where clipboard images aren't supported. */
         $("copyImgBtn").addEventListener("click", function () {
@@ -1403,19 +1507,6 @@
             showToast("Share card downloaded");
           });
         });
-        $("shareBtn").addEventListener("click", function () {
-          shareCanvasBlob().then(function (blob) {
-            if (!blob) { showToast("Couldn't render the card image"); return; }
-            const file = new File([blob], "leetfeel-" + (state.shareData ? state.shareData.slug : "card") + ".png", { type: "image/png" });
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-              navigator.share({ files: [file], title: "LeetFeel" }).catch(function (err) {
-                if (err && err.name !== "AbortError") showToast("Share didn't go through — try Copy image");
-              });
-            } else {
-              showToast("Sharing isn't available here — try Copy image");
-            }
-          });
-        });
         document.addEventListener("keydown", function (e) {
           if ($("pickerOverlay").classList.contains("show")) {
             if (e.key === "Escape") closePicker();
@@ -1439,15 +1530,39 @@
           try { localStorage.setItem("leetfeel-theme", next); } catch (e) {}
           setTimeout(positionCaret, 30);
         });
-        /* donation footer (placeholder link) */
-        const donate = $("donateBtn");
-        donate.href = DONATE_URL;
-        if (DONATE_URL === "#") {
-          donate.addEventListener("click", function (e) {
-            e.preventDefault();
-            showToast("Donations are not set up yet — thanks anyway");
-          });
+        /* Donation buttons (placeholder link) \u2014 one in the problem-pane
+           foot, one on the results screen; identical behavior. */
+        document.querySelectorAll(".donate-btn").forEach(function (donate) {
+          donate.href = DONATE_URL;
+          if (DONATE_URL === "#") {
+            donate.addEventListener("click", function (e) {
+              e.preventDefault();
+              showToast("Donations are not set up yet \u2014 thanks anyway");
+            });
+          }
+        });
+        /* Credits popovers: click to toggle, close on outside click / Esc. */
+        const creditPops = document.querySelectorAll(".credits-pop");
+        const creditBtns = document.querySelectorAll(".credits-btn");
+        function closeCredits() {
+          creditPops.forEach(function (pp) { pp.classList.remove("show"); });
+          creditBtns.forEach(function (b2) { b2.setAttribute("aria-expanded", "false"); });
         }
+        creditBtns.forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const pop = btn.parentElement.querySelector(".credits-pop");
+            const willShow = pop && !pop.classList.contains("show");
+            closeCredits();
+            if (pop && willShow) { pop.classList.add("show"); btn.setAttribute("aria-expanded", "true"); }
+          });
+        });
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest || !e.target.closest(".credits-wrap")) closeCredits();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeCredits();
+        });
         /* collapsible problem pane (narrow screens) */
         $("paneToggle").addEventListener("click", function () {
           const split = $("playView");
