@@ -319,11 +319,20 @@
 
       .editor-head { padding: 8px 16px; }
       .live-stats { font-size: 12.5px; gap: 14px; }
+      /* One scroll region that fills the editor pane: .code-wrap is the
+         flex:1 row of the editor column, and the grid stretches that column
+         to the full split-row height. The scroller is stretched over the
+         wrap (inset: 0) instead of being capped at a viewport-relative
+         max-height, so its scrollbar track spans the whole pane rather
+         than floating at half height with dead space below it. No
+         scroll-behavior: smooth — the typing auto-scroll and the wheel
+         forwarder set scrollTop directly, and smooth animation made
+         those updates lag and fight each other. */
+      .code-wrap { min-height: 360px; }
       .code-scroll {
-        position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain;
-        max-height: calc(100vh - 250px); min-height: 360px; scroll-behavior: smooth;
+        position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain;
       }
-      @media (max-width: 920px) { .code-scroll { max-height: 62vh; } }
+      @media (max-width: 920px) { .code-wrap { min-height: 55vh; } }
       .code-area {
         position: relative; font-size: 16.5px; line-height: 1.9; min-height: 100%;
         padding: 22px 24px 30px;
@@ -372,7 +381,6 @@
          despite the different label sizes. */
       .vs-panel-head .who, .vs-panel-head .who-sub { align-self: center; }
       body[data-mode="tab"] .tab-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
-      .donate-btn { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
 
       /* ---------- footer ---------- */
       .site-foot {
@@ -382,10 +390,13 @@
       .site-foot p { margin: 0 0 8px; }
       .site-foot a { color: var(--green-strong); }
       .donate-btn {
-        display: inline-block; margin-left: 6px; padding: 5px 13px; border-radius: 999px;
+        display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+        vertical-align: middle; line-height: 1;
+        margin-left: 6px; padding: 6px 14px; border-radius: 999px;
         border: 1px solid var(--border); background: var(--panel-2); color: var(--text) !important;
         text-decoration: none; font-weight: 600; font-size: 13px;
       }
+      .donate-btn .ph { display: block; }
       .donate-btn:hover { border-color: var(--faint); }
       .site-foot .attr { font-size: 12.5px; color: var(--faint); margin: 0; }
     </style>
