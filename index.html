@@ -97,7 +97,13 @@
         display: inline-flex; align-items: center; gap: 8px; flex: none;
         font-weight: 700; font-size: 17px; letter-spacing: -0.01em; line-height: 1;
         color: var(--text); white-space: nowrap; margin-right: 2px;
+        text-decoration: none; cursor: pointer;
+        /* Stay reachable above the picker overlay (z-index 80) so the
+           home/reset affordance works from the picker-open state too. */
+        position: relative; z-index: 90;
       }
+      .brand:hover { opacity: 0.78; }
+      .brand:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 4px; }
       .logo-mark {
         display: inline-flex; align-items: center; gap: 1px;
         line-height: 1; vertical-align: middle; flex: none;
@@ -502,7 +508,7 @@
   </head>
   <body data-mode="classic">
     <header class="toolbar">
-      <span class="brand" aria-label="LeetFeel"><span class="logo-mark" aria-hidden="true"><span class="logo-bracket">&lt;</span><span class="logo-face">😐</span><span class="logo-bracket">&gt;</span></span><span class="brand-name">LeetFeel</span></span>
+      <a class="brand" id="homeLink" href="#" aria-label="LeetFeel — home" title="LeetFeel — back to the start"><span class="logo-mark" aria-hidden="true"><span class="logo-bracket">&lt;</span><span class="logo-face">😐</span><span class="logo-bracket">&gt;</span></span><span class="brand-name">LeetFeel</span></a>
       <div class="nav-cluster" role="group" aria-label="Problem navigation">
         <button class="tb-btn" id="problemBtn" type="button" aria-haspopup="dialog" title="Browse all problems"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg><span>Problem List</span><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button>
         <button class="tb-btn nav-icon-btn" id="prevProblemBtn" type="button" aria-label="Previous problem" title="Previous problem"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button>
@@ -537,7 +543,7 @@
         </div>
         </div>
         <div class="pane-foot">
-          <span class="pane-foot-text">LeetFeel is free. If it made you feel something,</span>
+          <span class="pane-foot-text">LeetFeel is free. If it made you feel something:</span>
           <a class="donate-btn" id="donateBtn" href="#"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Buy me a coffee</a>
           <div class="credits-wrap"><button class="credits-btn" type="button" aria-haspopup="true" aria-expanded="false">Credits</button><div class="credits-pop" role="dialog" aria-label="Credits and attributions"><span class="credits-title">Credits</span><ul><li>Solutions — <a href="https://github.com/neetcode-gh/leetcode" target="_blank" rel="noopener">NeetCode (neetcode-gh/leetcode)</a> · MIT License</li><li>Problem statements — <a href="https://github.com/neenza/leetcode-problems" target="_blank" rel="noopener">neenza/leetcode-problems</a></li><li>Icons — <a href="https://github.com/phosphor-icons/core" target="_blank" rel="noopener">Phosphor Icons</a> · MIT License</li><li>Problems — <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a></li></ul></div></div>
         </div>
@@ -594,7 +600,7 @@
           <button class="tb-btn" id="downloadBtn" type="button"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,224a8,8,0,0,1-5.66-2.34l-80-80a8,8,0,0,1,11.32-11.32L120,196.69V24a8,8,0,0,1,16,0V196.69l66.34-66.35a8,8,0,0,1,11.32,11.32l-80,80A8,8,0,0,1,128,224Z"/></svg>Download PNG</button>
         </div>
         <div class="results-foot">
-          <p>LeetFeel is free. If it made you feel something, <a class="donate-btn" id="donateBtn2" href="#"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Buy me a coffee</a></p>
+          <p>LeetFeel is free. If it made you feel something: <a class="donate-btn" id="donateBtn2" href="#"><svg class="ph " viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Buy me a coffee</a></p>
           <div class="credits-wrap"><button class="credits-btn" type="button" aria-haspopup="true" aria-expanded="false">Credits</button><div class="credits-pop" role="dialog" aria-label="Credits and attributions"><span class="credits-title">Credits</span><ul><li>Solutions — <a href="https://github.com/neetcode-gh/leetcode" target="_blank" rel="noopener">NeetCode (neetcode-gh/leetcode)</a> · MIT License</li><li>Problem statements — <a href="https://github.com/neenza/leetcode-problems" target="_blank" rel="noopener">neenza/leetcode-problems</a></li><li>Icons — <a href="https://github.com/phosphor-icons/core" target="_blank" rel="noopener">Phosphor Icons</a> · MIT License</li><li>Problems — <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a></li></ul></div></div>
         </div>
       </div>
@@ -1024,6 +1030,28 @@
         focusCapture();
       }
       function restartRun() { startRun(state.currentId); }
+      /* Home/reset via the brand link: back to a fresh start from any
+         state — results dismissed and their stats/card cleared, picker
+         closed, current attempt abandoned and restarted fresh for the
+         current problem. Theme and language are user preferences and
+         survive; only session/run state resets. startRun() focuses the
+         editor as a side effect, so release that focus afterwards: the
+         brand is a header control, and the normal focus-veil state
+         (click the code to type) applies once the reset completes. */
+      function goHome() {
+        closePicker();
+        $("youRows").innerHTML = "";
+        $("aiRows").innerHTML = "";
+        $("scTitle").innerHTML = "";
+        $("scHeroNum").textContent = "";
+        $("scHeroUnit").textContent = "";
+        $("scStats").innerHTML = "";
+        delete $("shareCard").dataset.text;
+        state.shareData = null;
+        startRun(state.currentId);
+        const cap = $("capture");
+        if (document.activeElement === cap) cap.blur();
+      }
       function updateNavButtons() {
         const i = sortedIndex();
         const prev = $("prevProblemBtn"), next = $("nextProblemBtn");
@@ -1551,6 +1579,7 @@
         $("modeClassic").addEventListener("click", function () { if (state.mode !== "classic") setMode("classic"); });
         $("modeTab").addEventListener("click", function () { if (state.mode !== "tab") setMode("tab"); });
         $("restartBtn").addEventListener("click", restartRun);
+        $("homeLink").addEventListener("click", function (e) { e.preventDefault(); goHome(); });
         $("randomBtn").addEventListener("click", nextProblem);
         $("prevProblemBtn").addEventListener("click", function () { goAdjacent(-1); });
         $("nextProblemBtn").addEventListener("click", function () { goAdjacent(1); });
