@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://leetfeel.com/" />
+    <meta property="og:title" content="LeetFeel" />
+    <meta property="og:description" content="A meme typing test: type out LeetCode solutions an AI already solved — by hand, just to feel something." />
+    <meta property="og:url" content="https://leetfeel.com/" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20x='50%25'%20y='52%25'%20font-size='74'%20text-anchor='middle'%20dominant-baseline='central'%3E😐%3C/text%3E%3C/svg%3E" />
     <title>LeetFeel</title>
     <script>
@@ -590,7 +594,7 @@
           <div class="sc-stats" id="scStats"></div>
           <div class="sc-bottom">
             <div class="sc-foot">Typed by hand just to feel something again</div>
-            <div class="sc-brand"><span class="logo-mark logo-mark-sm" aria-hidden="true"><span class="logo-bracket">&lt;</span><span class="logo-face">😐</span><span class="logo-bracket">&gt;</span></span><span>LeetFeel</span></div>
+            <div class="sc-brand"><span class="logo-mark logo-mark-sm" aria-hidden="true"><span class="logo-bracket">&lt;</span><span class="logo-face">😐</span><span class="logo-bracket">&gt;</span></span><span>leetfeel.com</span></div>
           </div>
         </div>
         <div class="result-actions">
@@ -631,9 +635,8 @@
 
     <script>
       "use strict";
-      /* Placeholder donation link — swap this one constant for the real
-         Ko-fi / Buy Me a Coffee URL when it exists. "#" = not set up yet. */
-      const DONATE_URL = "#";
+      /* Donation link — the "Buy me a coffee" buttons point here. */
+      const DONATE_URL = "https://ko-fi.com/nkumpf4";
       /* Phosphor icons (MIT), inlined — used by JS-rendered content */
       const PH_ICONS = {
         keyboard: '<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224V192Zm-16-64a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16H200A8,8,0,0,1,208,128Zm0-32a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16H200A8,8,0,0,1,208,96ZM72,160a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h8A8,8,0,0,1,72,160Zm96,0a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,160Zm40,0a8,8,0,0,1-8,8h-8a8,8,0,0,1,0-16h8A8,8,0,0,1,208,160Z"/></svg>',
@@ -1241,7 +1244,7 @@
           ctx.font = "700 21px " + MONO; ctx.fillStyle = text;
           ctx.fillText(String(s[1]), sx, statValueTop);
         });
-        /* bottom row: tagline left, <😐> LeetFeel lockup bottom-right */
+        /* bottom row: tagline left, <😐> leetfeel.com lockup bottom-right */
         ctx.textBaseline = "alphabetic";
         ctx.font = "600 17px " + SANS; ctx.fillStyle = text;
         ctx.fillText("Typed by hand just to feel something again", X, footBaseline);
@@ -1251,7 +1254,7 @@
         ctx.font = "17px " + EMOJI_FONT;
         const faceW = ctx.measureText('😐').width;
         ctx.font = "700 17px " + SANS;
-        const wordW = ctx.measureText("LeetFeel").width;
+        const wordW = ctx.measureText("leetfeel.com").width;
         let lx = XR - (bracketW + 2 + faceW + 2 + bracketW + 7 + wordW);
         ctx.font = lockFont; ctx.fillStyle = green;
         ctx.save(); ctx.translate(lx, footBaseline); ctx.scale(1, 1.35); ctx.fillText("<", 0, 0); ctx.restore();
@@ -1263,7 +1266,7 @@
         ctx.save(); ctx.translate(lx, footBaseline); ctx.scale(1, 1.35); ctx.fillText(">", 0, 0); ctx.restore();
         lx += bracketW + 7;
         ctx.font = "700 17px " + SANS; ctx.fillStyle = text;
-        ctx.fillText("LeetFeel", lx, footBaseline);
+        ctx.fillText("leetfeel.com", lx, footBaseline);
         return cv;
       }
       function shareCanvasBlob() {
@@ -1645,16 +1648,12 @@
           try { localStorage.setItem("leetfeel-theme", next); } catch (e) {}
           setTimeout(positionCaret, 30);
         });
-        /* Donation buttons (placeholder link) \u2014 one in the problem-pane
-           foot, one on the results screen; identical behavior. */
+        /* Donation buttons \u2014 one in the problem-pane foot, one on
+           the results screen; both open the Ko-fi page in a new tab. */
         document.querySelectorAll(".donate-btn").forEach(function (donate) {
           donate.href = DONATE_URL;
-          if (DONATE_URL === "#") {
-            donate.addEventListener("click", function (e) {
-              e.preventDefault();
-              showToast("Donations are not set up yet \u2014 thanks anyway");
-            });
-          }
+          donate.target = "_blank";
+          donate.rel = "noopener noreferrer";
         });
         /* Credits popovers: click to toggle, close on outside click / Esc. */
         const creditPops = document.querySelectorAll(".credits-pop");
